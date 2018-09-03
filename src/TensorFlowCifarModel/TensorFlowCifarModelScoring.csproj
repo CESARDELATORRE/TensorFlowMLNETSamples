@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="data\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.Ensemble\Microsoft.ML.Ensemble.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.HalLearners\Microsoft.ML.HalLearners.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.ImageAnalytics\Microsoft.ML.ImageAnalytics.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.Maml\Microsoft.ML.Maml.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.PCA\Microsoft.ML.PCA.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.PipelineInference\Microsoft.ML.PipelineInference.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.StandardLearners\Microsoft.ML.StandardLearners.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML.TensorFlow\Microsoft.ML.TensorFlow.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\src\Microsoft.ML\Microsoft.ML.csproj" />
+    <ProjectReference Include="..\..\..\machinelearning\test\Microsoft.ML.Predictor.Tests\Microsoft.ML.Predictor.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\images\banana.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\images\hotdog.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\tags\images.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\images\tomato.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
