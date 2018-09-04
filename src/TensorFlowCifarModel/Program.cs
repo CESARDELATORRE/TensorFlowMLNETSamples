@@ -4,7 +4,6 @@ using Microsoft.ML.Runtime;
 using Microsoft.ML.Runtime.Api;
 using Microsoft.ML.Runtime.Data;
 using Microsoft.ML.Runtime.ImageAnalytics;
-using Microsoft.ML.Runtime.LightGBM;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Transforms;
 using System.Collections.Generic;
@@ -12,6 +11,8 @@ using System.IO;
 
 namespace TensorFlowCifarModelScoring
 {
+    // Currently, need to install NuGet packages from MyGet: 
+    // https://dotnet.myget.org/F/dotnet-core/api/v3/index.json 
     class Program
     {
         static FileInfo currentAssemblyLocation = new FileInfo(typeof(Program).Assembly.Location);
@@ -57,6 +58,12 @@ namespace TensorFlowCifarModelScoring
             pipeline.Add(new ColumnConcatenator(outputColumn: "Features", inputColumns: "Output"));
             pipeline.Add(new TextToKeyConverter("Label"));
             pipeline.Add(new StochasticDualCoordinateAscentClassifier());
+
+            // Hack/workaround for a bug in ML.NET 0.6 preview. 
+            // These two lines shouldn't be needed after the bug is fixed
+            // These two lines are not needed if referencing the ML.NET OSS code projects directly..
+            var hackArguments = new TensorFlowTransform.Arguments();
+            var hackImageLoaderTransform= new ImageLoaderTransform.Arguments();
 
             var model = pipeline.Train<CifarData, CifarPrediction>();
             string[] scoreLabels;
