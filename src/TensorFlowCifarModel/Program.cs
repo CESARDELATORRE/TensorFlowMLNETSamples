@@ -59,7 +59,7 @@ namespace TensorFlowCifarModelScoring
             pipeline.Add(new TextToKeyConverter("Label"));
             pipeline.Add(new StochasticDualCoordinateAscentClassifier());
 
-            // Hack/workaround for a bug in ML.NET 0.6 preview. 
+            // Hack/workaround for a bug in ML.NET preview. 
             // These two lines shouldn't be needed after the bug is fixed
             // These two lines are not needed if referencing the ML.NET OSS code projects directly..
             var hackArguments = new TensorFlowTransform.Arguments();
