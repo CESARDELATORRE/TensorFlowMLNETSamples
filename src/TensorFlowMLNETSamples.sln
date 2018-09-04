@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TensorFlowCifarModelScoring
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TensorFlowSharpInceptionv3Scoring", "TensorFlowSharpInceptionv3Scoring\TensorFlowSharpInceptionv3Scoring.csproj", "{205D1B99-5414-4842-BE36-240B39E34022}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TensorFlowMLNETInceptionv3ModelScoring", "TensorFlowMLNETInceptionv3ModelScoring\TensorFlowMLNETInceptionv3ModelScoring.csproj", "{676E28F2-014D-4618-A58C-44BEA03F9F4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{205D1B99-5414-4842-BE36-240B39E34022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{205D1B99-5414-4842-BE36-240B39E34022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{205D1B99-5414-4842-BE36-240B39E34022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676E28F2-014D-4618-A58C-44BEA03F9F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676E28F2-014D-4618-A58C-44BEA03F9F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676E28F2-014D-4618-A58C-44BEA03F9F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676E28F2-014D-4618-A58C-44BEA03F9F4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
