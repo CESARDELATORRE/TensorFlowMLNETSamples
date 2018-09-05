@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ML" Version="0.6.0-preview-26903-1" />
-    <PackageReference Include="Microsoft.ML.CpuMath" Version="0.6.0-preview-26903-1" />
-    <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="0.5.0-preview-26831-1" />
-    <PackageReference Include="Microsoft.ML.TensorFlow" Version="0.5.0-preview-26831-1" />
-    <PackageReference Include="Microsoft.ML.TensorFlow.Redist" Version="0.6.0-preview-26903-1" />
+    <PackageReference Include="Microsoft.ML" Version="0.5.0-preview-26905-6" />
+    <PackageReference Include="Microsoft.ML.CpuMath" Version="0.5.0-preview-26905-6" />
+    <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="0.5.0-preview-26905-6" />
+    <PackageReference Include="Microsoft.ML.TensorFlow" Version="0.5.0-preview-26905-6" />
+    <PackageReference Include="Microsoft.ML.TensorFlow.Redist" Version="0.5.0-preview-26905-6" />
   </ItemGroup>
 
   <ItemGroup>
