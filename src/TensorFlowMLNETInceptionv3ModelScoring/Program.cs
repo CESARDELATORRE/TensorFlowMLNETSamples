@@ -28,7 +28,7 @@ namespace TensorFlowMLNETInceptionv3ModelScoring
         {
             Console.WriteLine("Hello World!");
             var model_location = "model/tensorflow_inception_graph.pb";
-            var dataFile = GetDataPath("model/imagenet.tsv");
+            var dataFile = GetDataPath("model/tags.tsv");
             var tagsFolder = Path.GetDirectoryName(dataFile);
             var imagesFolder = Path.Combine(_dataRoot, "images");
 
@@ -82,7 +82,7 @@ namespace TensorFlowMLNETInceptionv3ModelScoring
 
             ImageNetPrediction prediction = model.Predict(new ImageNetData()
             {
-                ImagePath = GetDataPath("images/banana.jpg")
+                ImagePath = GetDataPath("images/violin.jpg")
             });
 
             Console.WriteLine("End of process");
