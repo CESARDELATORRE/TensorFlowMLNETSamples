@@ -9,11 +9,25 @@ using System.IO;
 
 namespace TensorFlowMLNETInceptionv3ModelScoring
 {
+    // - TensorFlow https://www.tensorflow.org/ is a popular machine learning toolkit that enables training deep neural networks(and general numeric computations).
+    // - This sample show the usage of the ML.NET "TensorFlowScorer" transform that enables taking an existing TensorFlow model, either trained by you 
+    //   or downloaded from somewhere else, and get the scores from the TensorFlow model in ML.NET code.
+    // - For now, these scores (numeric vectors) can only be used within a LearningPipeline as inputs to a learner.
+    //   However, with the upcoming ML.NET APIs, the scores from the TensorFlow model will be directly accessible.
+    // - The implementation of this mentioned "TensorFlowScorer" transform is based on code from TensorFlowSharp.
+    //
+    // Sample code: Specifically, this sample code when training with the pipeline, it generates a numeric vector for each image that you have in the folder "images" 
+    // and correlates those numeric vectors with the types of objects/things provided in the "tags.tsv" file. 
+    // After that, the model is trained with an SDCA classifier (StochasticDualCoordinateAscentClassifier) that uses that relationship between numeric vectors and labels/tags. 
+    // so when using the model in a test or final app, you can classify any given image that is similar to any of the images used in the pipeline.
+    // IMPORTANT: Note that the sample is only training with one image per type so the accuracy will be poor.
+    // In order to get a good accuracy and better effectiveness when classifying images you'd need to train with a much larger volume of images per image-type. 
+
     class Program
     {
         static FileInfo currentAssemblyLocation = new FileInfo(typeof(Program).Assembly.Location);
         static private readonly string _rootDir = currentAssemblyLocation.Directory.FullName;
-        static private readonly string _dataRoot = Path.Combine(_rootDir, "data");
+        static private readonly string _dataRoot = Path.Combine(_rootDir, ".");
         const float mean = 117;
         const float scale = 1;
         const int imageHeight = 224;
@@ -26,13 +40,18 @@ namespace TensorFlowMLNETInceptionv3ModelScoring
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // TensorFlow model file's pathname
             var model_location = "model/tensorflow_inception_graph.pb";
+
+            // File pathname to textfile with relationship between image-files and image-types (tags)
             var dataFile = GetDataPath("model/tags.tsv");
+
             var tagsFolder = Path.GetDirectoryName(dataFile);
             var imagesFolder = Path.Combine(_dataRoot, "images");
 
             var pipeline = new LearningPipeline();
+
+            // Load the tags file into the pipeline
             pipeline.Add(new Microsoft.ML.Data.TextLoader(dataFile).CreateFrom<ImageNetData>(useHeader: false));
             pipeline.Add(new ImageLoader(("ImagePath", "ImageReal"))
             {
@@ -59,18 +78,12 @@ namespace TensorFlowMLNETInceptionv3ModelScoring
             {
                 ModelFile = model_location,
                 InputColumns = new[] { inputTensorName },
-                OutputColumn = outputTensorName
+                OutputColumns = new[] { outputTensorName }
             });
 
             pipeline.Add(new ColumnConcatenator(outputColumn: "Features", inputColumns: outputTensorName));
             pipeline.Add(new TextToKeyConverter("Label"));
             pipeline.Add(new StochasticDualCoordinateAscentClassifier());
-
-            // Hack/workaround for a bug in ML.NET preview. 
-            // These two lines shouldn't be needed after the bug is fixed
-            // These two lines are not needed if referencing the ML.NET OSS code projects directly..
-            //var hackArguments = new TensorFlowTransform.Arguments();
-            //var hackImageLoaderTransform = new ImageLoaderTransform.Arguments();
 
             TensorFlowUtils.Initialize();
 
@@ -79,7 +92,6 @@ namespace TensorFlowMLNETInceptionv3ModelScoring
             model.TryGetScoreLabelNames(out scoreLabels);
 
             //Test Scoring
-
             ImageNetPrediction prediction = model.Predict(new ImageNetData()
             {
                 ImagePath = GetDataPath("images/violin.jpg")
